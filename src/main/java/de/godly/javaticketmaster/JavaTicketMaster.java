@@ -2,6 +2,7 @@ package de.godly.javaticketmaster;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.neovisionaries.i18n.CountryCode;
 import de.godly.javaticketmaster.objects.Attraction;
 import de.godly.javaticketmaster.request.details.*;
 import de.godly.javaticketmaster.request.search.AttractionsSearchRequest;
@@ -42,16 +43,16 @@ public class JavaTicketMaster {
 
     @SneakyThrows
     public static void main(String[] args) {
-       JavaTicketMaster javaTicketMaster=  new JavaTicketMaster("TPkmuIgjK33iLLGBAowSYsXocPvYneHH", null);
+       JavaTicketMaster javaTicketMaster=  new JavaTicketMaster("YourApiKey", null);
         EventsResponse response = new EventsSearchRequest(javaTicketMaster).addParameter(EventsSearchRequest.EventRequestParameter.CITY, new String[]{"Stuttgart"}).
-        addParameter(EventsSearchRequest.EventRequestParameter.SIZE, (int)3).addParameter(EventsSearchRequest.EventRequestParameter.COUNTRY_CODE, "de").request();
+        addParameter(EventsSearchRequest.EventRequestParameter.SIZE, (int)3).addParameter(EventsSearchRequest.EventRequestParameter.COUNTRY_CODE, CountryCode.DE).request();
         System.out.println(response.getEventsWrapper().getEvents().get(1).getName());
         System.out.println(response.getEventsWrapper().getEvents().get(1).getUrl());
         System.out.println(response.getEventsWrapper().getEvents().get(1).getEventAttractionsVenues().getAttractions().get(0).getClassifications().get(0).getGenre().getName());
         System.out.println(response.getEventsWrapper().getEvents().get(1).getDates().getStart().getLocalDate());
         System.out.println(response.getEventsWrapper().getEvents().get(1).getDates().getStart().getDate().toString());
 
-        AttractionsResponse attractionsResponse = new AttractionsSearchRequest(javaTicketMaster).addParameter(AttractionsSearchRequest.AttractionRequestParameter.PREFERRED_COUNTRY, "de").addParameter(AttractionsSearchRequest.AttractionRequestParameter.SIZE, 2).addParameter(AttractionsSearchRequest.AttractionRequestParameter.SEGMENT_NAME, "Music").request();
+        AttractionsResponse attractionsResponse = new AttractionsSearchRequest(javaTicketMaster).addParameter(AttractionsSearchRequest.AttractionRequestParameter.PREFERRED_COUNTRY, CountryCode.DE).addParameter(AttractionsSearchRequest.AttractionRequestParameter.SIZE, 2).addParameter(AttractionsSearchRequest.AttractionRequestParameter.SEGMENT_NAME, "Music").request();
         System.out.println(attractionsResponse.getAttractionsWrapper().getAttractions().get(0).getName());
         System.out.println(attractionsResponse.getAttractionsWrapper().getAttractions().get(0).getClassifications().get(0).getGenre().getName());
 
@@ -60,7 +61,7 @@ public class JavaTicketMaster {
             System.out.println(m.getGenre().getName());
         }
 
-        ClassificationsResponse classificationsResponse = new ClassificationsRequest(javaTicketMaster).addParameter(ClassificationsRequest.ClassificationRequestParameter.SIZE, 1).addParameter(ClassificationsRequest.ClassificationRequestParameter.PREFERRED_COUNTRY, "de").request();
+        ClassificationsResponse classificationsResponse = new ClassificationsRequest(javaTicketMaster).addParameter(ClassificationsRequest.ClassificationRequestParameter.SIZE, 1).addParameter(ClassificationsRequest.ClassificationRequestParameter.PREFERRED_COUNTRY, CountryCode.DE).request();
 
         System.out.println(classificationsResponse.getClassificationsWrapper().getClassifications().get(0).getSegment().getGenreContainer().getGenres().get(0).getName());
         ClassificationDetailsResponse classificationDetailsResponse = new ClassificationDetailsRequest(javaTicketMaster).withId(classificationsResponse.getClassificationsWrapper().getClassifications().get(0).getSegment().getId()).request();
@@ -73,7 +74,7 @@ public class JavaTicketMaster {
         SubgenreDetailsResponse subgenreDetailsRequest = new SubgenreDetailsRequest(javaTicketMaster).withId(genreDetailsResponse.getSubgenreContainer().getSubgenres().get(0).getId()).request();
         System.out.println(subgenreDetailsRequest.getName());
 
-        VenuesResponse venuesResponse = new VenueSearchRequest(javaTicketMaster).addParameter(VenueSearchRequest.VenueRequestParameter.SIZE, 1).addParameter(VenueSearchRequest.VenueRequestParameter.COUNTRY_CODE, "de").request();
+        VenuesResponse venuesResponse = new VenueSearchRequest(javaTicketMaster).addParameter(VenueSearchRequest.VenueRequestParameter.SIZE, 1).addParameter(VenueSearchRequest.VenueRequestParameter.COUNTRY_CODE, CountryCode.DE).request();
         System.out.println(venuesResponse.getVenuesWrapper().getVenues().get(0).getName());
         System.out.println(venuesResponse.getVenuesWrapper().getVenues().get(0).getUrl());
         VenueDetailsResponse venueDetailsResponse = new VenueDetailsRequest(javaTicketMaster).withId(venuesResponse.getVenuesWrapper().getVenues().get(0).getId()).request();
