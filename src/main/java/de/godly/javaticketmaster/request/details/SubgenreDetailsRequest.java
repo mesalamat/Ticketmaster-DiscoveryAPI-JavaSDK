@@ -56,8 +56,7 @@ public class SubgenreDetailsRequest extends DiscoveryRequest {
         if(parameters.get(SubgenreDetailsRequestParameter.ID) == null){
             throw new NullPointerException("SegmentDetailsRequestParameter has no set ID. Please provide an ID by using the withId Method");
         }
-        StringBuilder builder = new StringBuilder("https://app.ticketmaster.com/discovery/v2/classifications/subgenres/" + parameters.get(SubgenreDetailsRequestParameter.ID) + ".json"+ "?apikey=" +  getJavaTicketMaster().getApiKey());
-        Request request = new Request.Builder().url(builder.toString()).addHeader("User-Agent", getJavaTicketMaster().getUserAgent()).build();
+        Request request = new Request.Builder().url("https://app.ticketmaster.com/discovery/v2/classifications/subgenres/" + parameters.get(SubgenreDetailsRequestParameter.ID) + ".json" + "?apikey=" + getJavaTicketMaster().getApiKey()).addHeader("User-Agent", getJavaTicketMaster().getUserAgent()).build();
         Response response = getJavaTicketMaster().getOkHttpClient().newCall(request).execute();
         getJavaTicketMaster().getRatelimit().handle(response.headers());
         return getJavaTicketMaster().getGson().fromJson(response.body().string(), SubgenreDetailsResponse.class);

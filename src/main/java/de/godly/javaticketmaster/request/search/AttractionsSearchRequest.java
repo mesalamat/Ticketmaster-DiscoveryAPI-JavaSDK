@@ -9,6 +9,7 @@ import de.godly.javaticketmaster.response.search.AttractionsResponse;
 import lombok.Getter;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -51,6 +52,16 @@ public class AttractionsSearchRequest extends DiscoveryRequest {
      * @throws IOException if URL cannot be found.
      */
     public AttractionsResponse request() throws IOException {
+        String requestString = getRequestString();
+
+        Request request = new Request.Builder().url(requestString).addHeader("User-Agent", getJavaTicketMaster().getUserAgent()).build();
+        Response response = getJavaTicketMaster().getOkHttpClient().newCall(request).execute();
+        getJavaTicketMaster().getRatelimit().handle(response.headers());
+        return getJavaTicketMaster().getGson().fromJson(response.body().string(), AttractionsResponse.class);
+    }
+
+    @NotNull
+    private String getRequestString() {
         StringBuilder builder = new StringBuilder("https://app.ticketmaster.com/discovery/v2/attractions.json?apikey=" + this.getJavaTicketMaster().getApiKey());
 
         for(AttractionRequestParameter parameter : parameters.keySet()){
@@ -67,11 +78,7 @@ public class AttractionsSearchRequest extends DiscoveryRequest {
                 builder.append("&").append(parameter.paramName).append("=").append(source.getParamId());
             }else builder.append("&").append(parameter.paramName).append("=").append(parameters.get(parameter));
         }
-
-        Request request = new Request.Builder().url(builder.toString()).addHeader("User-Agent", getJavaTicketMaster().getUserAgent()).build();
-        Response response = getJavaTicketMaster().getOkHttpClient().newCall(request).execute();
-        getJavaTicketMaster().getRatelimit().handle(response.headers());
-        return getJavaTicketMaster().getGson().fromJson(response.body().string(), AttractionsResponse.class);
+        return builder.toString();
     }
 
 

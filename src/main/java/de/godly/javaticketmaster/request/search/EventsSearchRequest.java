@@ -9,6 +9,7 @@ import de.godly.javaticketmaster.response.search.EventsResponse;
 import lombok.Getter;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -51,6 +52,15 @@ public class EventsSearchRequest extends DiscoveryRequest {
      * @throws IOException if URL cannot be found.
      */
     public EventsResponse request() throws IOException {
+        String requestString = getRequestString();
+        Request request = new Request.Builder().url(requestString).addHeader("User-Agent", getJavaTicketMaster().getUserAgent()).build();
+        Response response = getJavaTicketMaster().getOkHttpClient().newCall(request).execute();
+        getJavaTicketMaster().getRatelimit().handle(response.headers());
+        return getJavaTicketMaster().getGson().fromJson(response.body().string(), EventsResponse.class);
+    }
+
+    @NotNull
+    private String getRequestString() {
         StringBuilder builder = new StringBuilder("https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + getJavaTicketMaster().getApiKey());
         for (EventRequestParameter parameter : parameters.keySet()) {
             Object value = parameters.get(parameter);
@@ -66,10 +76,7 @@ public class EventsSearchRequest extends DiscoveryRequest {
                 builder.append("&").append(parameter.paramName).append("=").append(source.getParamId());
             } else builder.append("&").append(parameter.paramName).append("=").append(parameters.get(parameter));
         }
-        Request request = new Request.Builder().url(builder.toString()).addHeader("User-Agent", getJavaTicketMaster().getUserAgent()).build();
-        Response response = getJavaTicketMaster().getOkHttpClient().newCall(request).execute();
-        getJavaTicketMaster().getRatelimit().handle(response.headers());
-        return getJavaTicketMaster().getGson().fromJson(response.body().string(), EventsResponse.class);
+        return builder.toString();
     }
 
 

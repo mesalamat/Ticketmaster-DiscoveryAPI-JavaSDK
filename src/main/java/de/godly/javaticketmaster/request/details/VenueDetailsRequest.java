@@ -51,8 +51,7 @@ public class VenueDetailsRequest extends DiscoveryRequest {
         if(parameters.get(VenueDetailsRequestParameter.ID) == null){
             throw new NullPointerException("VenueDetailsRequest has no set ID. Please provide an ID by using the withId Method");
         }
-        StringBuilder builder = new StringBuilder("https://app.ticketmaster.com/discovery/v2/venues/" + parameters.get(VenueDetailsRequestParameter.ID) + ".json?apikey=" +  getJavaTicketMaster().getApiKey());
-        Request request = new Request.Builder().url(builder.toString()).addHeader("User-Agent", getJavaTicketMaster().getUserAgent()).build();
+        Request request = new Request.Builder().url("https://app.ticketmaster.com/discovery/v2/venues/" + parameters.get(VenueDetailsRequestParameter.ID) + ".json?apikey=" + getJavaTicketMaster().getApiKey()).addHeader("User-Agent", getJavaTicketMaster().getUserAgent()).build();
         Response response = getJavaTicketMaster().getOkHttpClient().newCall(request).execute();
         getJavaTicketMaster().getRatelimit().handle(response.headers());
         return  getJavaTicketMaster().getGson().fromJson(response.body().string(), VenueDetailsResponse.class);
