@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class State{
 
-    private String name;
-    private String stateCode;
+    private final String name;
+    private final String stateCode;
 }

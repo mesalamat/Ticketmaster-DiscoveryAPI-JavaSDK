@@ -52,6 +52,7 @@ public class AttractionsSearchRequest extends DiscoveryRequest {
      */
     public AttractionsResponse request() throws IOException {
         StringBuilder builder = new StringBuilder("https://app.ticketmaster.com/discovery/v2/attractions.json?apikey=" + this.getJavaTicketMaster().getApiKey());
+
         for(AttractionRequestParameter parameter : parameters.keySet()){
             Object value = parameters.get(parameter);
             if(value instanceof String[] array){
@@ -60,14 +61,13 @@ public class AttractionsSearchRequest extends DiscoveryRequest {
                 }
             }else if(value instanceof AttractionRequestParameter.AttractionSortMode sortMode){
                 builder.append("&").append(parameter.paramName).append("=").append(sortMode.sortName);
-            }else if (value instanceof CountryCode countryCode) {
-                builder.append("&").append(parameter.paramName).append("=").append(countryCode.getAlpha2().toLowerCase());
             }else if(value instanceof LimitSearchEnum limitSearchEnum){
                 builder.append("&").append(parameter.paramName).append("=").append(limitSearchEnum.getParamId());
             }else if(value instanceof Source source){
                 builder.append("&").append(parameter.paramName).append("=").append(source.getParamId());
             }else builder.append("&").append(parameter.paramName).append("=").append(parameters.get(parameter));
         }
+
         Request request = new Request.Builder().url(builder.toString()).addHeader("User-Agent", getJavaTicketMaster().getUserAgent()).build();
         Response response = getJavaTicketMaster().getOkHttpClient().newCall(request).execute();
         getJavaTicketMaster().getRatelimit().handle(response.headers());
@@ -96,7 +96,7 @@ public class AttractionsSearchRequest extends DiscoveryRequest {
         , SUB_GENRE_ID("subGenreId", String[].class)
         , TYPE_ID("typeId", String[].class)
         , SUB_TYPE_ID("subTypeId", String[].class)
-        , PREFERRED_COUNTRY("preferredCountry", CountryCode.class)
+        , PREFERRED_COUNTRY("preferredCountry", String.class)
         , INCLUDE_SPELL_CHECK("includeSpellCheck", String.class)
         , DOMAIN("domain", String[].class);
 

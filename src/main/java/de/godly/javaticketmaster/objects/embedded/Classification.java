@@ -15,7 +15,7 @@ public class Classification {
     @Nullable("Only appears when using Classification Search!")
     private final ClassificationType type;
     private final ClassificationSubType subType;
-    private boolean family;
+    private final boolean family;
 
     @Data
     public class ClassificationSubType {

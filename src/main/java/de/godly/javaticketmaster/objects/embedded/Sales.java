@@ -8,13 +8,14 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@Data
 public class Sales {
 
 
     @SerializedName("public")
-    private Sale publicSale;
+    private final Sale publicSale;
     @Nullable
-    private List<PreSale> presales;
+    private final List<PreSale> presales;
 
     @Data
     public class PreSale{

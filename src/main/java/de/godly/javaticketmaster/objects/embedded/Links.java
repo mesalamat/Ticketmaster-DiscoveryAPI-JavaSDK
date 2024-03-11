@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class Links {
 
-    private Link first;
-    private Link self;
-    private Link next;
-    private Link last;
+    private final Link first;
+    private final Link self;
+    private final Link next;
+    private final Link last;
 
 
 

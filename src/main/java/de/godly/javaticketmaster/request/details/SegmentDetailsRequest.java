@@ -24,6 +24,16 @@ public class SegmentDetailsRequest extends DiscoveryRequest {
     }
 
     /**
+     * Creates a new SegmentDetailsRequest, makes call to "withId" redundant.
+     * @param ticketMaster Instance of JavaTicketMaster
+     * @param segmentId ID of the Segment you want details about. This is not the Segment Name.
+     */
+    public SegmentDetailsRequest(JavaTicketMaster ticketMaster, String segmentId){
+        this(ticketMaster);
+        withId(segmentId);
+    }
+
+    /**
      * Sets the Parameter Genre ID to provided Value
      * @param genreId provided Value
      * @return this, ready to continue building or request

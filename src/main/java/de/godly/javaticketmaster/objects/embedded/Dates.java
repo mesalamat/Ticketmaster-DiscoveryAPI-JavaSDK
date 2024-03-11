@@ -13,9 +13,9 @@ public class Dates {
     private final LocalDate start;
     private final LocalDate end;
     private final String timezone;
-    private Status status;
+    private final Status status;
     @Nullable
-    private boolean spanMultipleDays;
+    private final boolean spanMultipleDays;
 
 
     @Data

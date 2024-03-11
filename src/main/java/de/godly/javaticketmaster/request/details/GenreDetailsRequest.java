@@ -16,11 +16,24 @@ public class GenreDetailsRequest extends DiscoveryRequest {
 
     private Map<GenreDetailsRequestParameter, Object> parameters;
 
-
+    /**
+     * Create a new GenreDetailsRequest.
+     * @param ticketMaster Instance of JavaTicketMaster
+     */
     public GenreDetailsRequest(JavaTicketMaster ticketMaster){
         super(ticketMaster);
         parameters = new HashMap<>();
 
+    }
+
+    /**
+     * Creates a new GenreDetailsRequest, makes call to "withId" redundant.
+     * @param ticketMaster Instance of JavaTicketMaster
+     * @param genreId ID of the Genre you want details about. This is not the Genre Name.
+     */
+    public GenreDetailsRequest(JavaTicketMaster ticketMaster, String genreId){
+        this(ticketMaster);
+        withId(genreId);
     }
 
     /**
@@ -39,7 +52,6 @@ public class GenreDetailsRequest extends DiscoveryRequest {
      * @throws IOException URL cannot be reached
      * @throws NullPointerException if the ID parameter == null
      */
-
     public GenreDetailsResponse request() throws IOException {
         if(parameters.get(GenreDetailsRequestParameter.ID) == null){
             throw new NullPointerException("GenreDetailsRequestParameter has no set ID. Please provide an ID by using the withId Method");

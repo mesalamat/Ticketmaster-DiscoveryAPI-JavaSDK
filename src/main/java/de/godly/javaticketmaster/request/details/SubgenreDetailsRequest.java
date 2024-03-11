@@ -16,11 +16,24 @@ public class SubgenreDetailsRequest extends DiscoveryRequest {
 
     private Map<SubgenreDetailsRequestParameter, Object> parameters;
 
-
+    /**
+     * Creates a new SubgenreDetailsRequest.
+     * @param ticketMaster Instance of JavaTicketMaster
+     */
     public SubgenreDetailsRequest(JavaTicketMaster ticketMaster){
         super(ticketMaster);
         parameters = new HashMap<>();
 
+    }
+
+    /**
+     * Creates a new SubgenreDetailsRequest, makes call to "withId" redundant.
+     * @param ticketMaster Instance of JavaTicketMaster
+     * @param subgenreId ID of the Subgenre you want details about. This is not the Segment Name.
+     */
+    public SubgenreDetailsRequest(JavaTicketMaster ticketMaster, String subgenreId){
+        this(ticketMaster);
+        withId(subgenreId);
     }
 
     /**
@@ -39,7 +52,6 @@ public class SubgenreDetailsRequest extends DiscoveryRequest {
      * @throws IOException URL cannot be reached
      * @throws NullPointerException if the ID parameter == null
      */
-
     public SubgenreDetailsResponse request() throws IOException {
         if(parameters.get(SubgenreDetailsRequestParameter.ID) == null){
             throw new NullPointerException("SegmentDetailsRequestParameter has no set ID. Please provide an ID by using the withId Method");

@@ -5,7 +5,6 @@ import de.godly.javaticketmaster.JavaTicketMaster;
 import de.godly.javaticketmaster.objects.search.LimitSearchEnum;
 import de.godly.javaticketmaster.objects.search.Source;
 import de.godly.javaticketmaster.request.DiscoveryRequest;
-import de.godly.javaticketmaster.response.search.AttractionsResponse;
 import de.godly.javaticketmaster.response.search.VenuesResponse;
 import lombok.Getter;
 import okhttp3.Request;
@@ -60,10 +59,8 @@ public class VenueSearchRequest extends DiscoveryRequest {
                 for (String s : array) {
                     builder.append("&").append(parameter.paramName).append("=").append(s);
                 }
-            } else if (value instanceof VenueRequestParameter.AttractionSortMode sortMode) {
+            } else if (value instanceof VenueRequestParameter.VenueSortMode sortMode) {
                 builder.append("&").append(parameter.paramName).append("=").append(sortMode.sortName);
-            } else if (value instanceof CountryCode countryCode) {
-                builder.append("&").append(parameter.paramName).append("=").append(countryCode.getAlpha2().toLowerCase());
             } else if (value instanceof LimitSearchEnum limitSearchEnum) {
                 builder.append("&").append(parameter.paramName).append("=").append(limitSearchEnum.getParamId());
             } else if (value instanceof Source source) {
@@ -81,7 +78,7 @@ public class VenueSearchRequest extends DiscoveryRequest {
 
 
         ID("id", String.class),
-        KEY_WORD("keyword", String.class), SOURCE("source", Source.class), LOCALE("locale", String.class), PAGE("page", Integer.class), INCLUDE_TEST("includeTest", LimitSearchEnum.class), SIZE("size", Integer.class), SORT("sort", AttractionSortMode.class), COUNTRY_CODE("countryCode", CountryCode.class), STATE_CODE("stateCode", String.class), GEO_POINT("geoPoint", String.class), RADIUS("radius", Integer.class), UNIT("unit", String.class), PREFERRED_COUNTRY("preferredCountry", CountryCode.class), INCLUDE_SPELL_CHECK("includeSpellCheck", String.class), DOMAIN("domain", String[].class);
+        KEY_WORD("keyword", String.class), SOURCE("source", Source.class), LOCALE("locale", String.class), PAGE("page", Integer.class), INCLUDE_TEST("includeTest", LimitSearchEnum.class), SIZE("size", Integer.class), SORT("sort", VenueSortMode.class), COUNTRY_CODE("countryCode", String.class), STATE_CODE("stateCode", String.class), GEO_POINT("geoPoint", String.class), RADIUS("radius", Integer.class), UNIT("unit", String.class), PREFERRED_COUNTRY("preferredCountry", CountryCode.class), INCLUDE_SPELL_CHECK("includeSpellCheck", String.class), DOMAIN("domain", String[].class);
 
 
         private String paramName;
@@ -92,12 +89,12 @@ public class VenueSearchRequest extends DiscoveryRequest {
             this.type = type;
         }
 
-        private enum AttractionSortMode {
+        private enum VenueSortMode {
 
             BY_NAME_ASCENDING("name,asc"), BY_NAME_DESCENDING("name,desc"), BY_RELEVANCE_ASCENDING("relevance,asc"), BY_RELEVANCE_DESCENDING("relevance,desc"), BY_DISTANCE_ASCENDING("distance,asc"), BY_DISTANCE_DESCENDING("distance,desc"), RANDOM("random");
             private String sortName;
 
-            AttractionSortMode(String sortName) {
+            VenueSortMode(String sortName) {
                 this.sortName = sortName;
             }
         }

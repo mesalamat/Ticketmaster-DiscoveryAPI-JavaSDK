@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class Market {
 
-    private String id;
+    private final String id;
 }

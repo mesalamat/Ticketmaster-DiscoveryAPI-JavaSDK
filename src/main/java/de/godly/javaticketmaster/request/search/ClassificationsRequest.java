@@ -59,8 +59,6 @@ public class ClassificationsRequest extends DiscoveryRequest {
                 }
             }else if(value instanceof ClassificationRequestParameter.ClassificationSortMode sortMode){
                 builder.append("&").append(parameter.paramName).append("=").append(sortMode.sortName);
-            }else if (value instanceof CountryCode countryCode) {
-                builder.append("&").append(parameter.paramName).append("=").append(countryCode.getAlpha2().toLowerCase());
             }else if(value instanceof LimitSearchEnum limitSearchEnum){
                 builder.append("&").append(parameter.paramName).append("=").append(limitSearchEnum.getParamId());
             }else if(value instanceof Source source){
@@ -89,7 +87,7 @@ public class ClassificationsRequest extends DiscoveryRequest {
         ,INCLUDE_TEST("includeTest", LimitSearchEnum.class)
         ,SIZE("size", Integer.class)
         ,SORT("sort", ClassificationSortMode.class)
-        , PREFERRED_COUNTRY("preferredCountry", CountryCode.class)
+        , PREFERRED_COUNTRY("preferredCountry", String.class)
         , INCLUDE_SPELL_CHECK("includeSpellCheck", String.class)
         , DOMAIN("domain", String[].class);
 

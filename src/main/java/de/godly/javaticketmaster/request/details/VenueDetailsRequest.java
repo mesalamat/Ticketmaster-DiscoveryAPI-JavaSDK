@@ -16,10 +16,24 @@ public class VenueDetailsRequest extends DiscoveryRequest {
 
     private Map<VenueDetailsRequestParameter, Object> parameters;
 
-
+    /**
+     * Create a new VenueDetailsRequest.
+     * @param ticketMaster Instance of JavaTicketMaster
+     */
     public VenueDetailsRequest(JavaTicketMaster ticketMaster){
         super(ticketMaster);
         parameters = new HashMap<>();
+
+    }
+
+    /**
+     * Create a new VenueDetailsRequest.
+     * @param ticketMaster Instance of JavaTicketMaster
+     * @param venueId ID of the Venue you want Details about. ID is not the name.
+     */
+    public VenueDetailsRequest(JavaTicketMaster ticketMaster, String venueId){
+        this(ticketMaster);
+        withId(venueId);
 
     }
 
@@ -27,7 +41,12 @@ public class VenueDetailsRequest extends DiscoveryRequest {
         parameters.put(VenueDetailsRequestParameter.ID, venueId);
         return this;
     }
-
+    /** Builds the request based on the Parameters and executes it
+     *
+     * @return the Deserialized SubgenreDetailsResponse Object
+     * @throws IOException URL cannot be reached
+     * @throws NullPointerException if the ID parameter == null
+     */
     public VenueDetailsResponse request() throws IOException {
         if(parameters.get(VenueDetailsRequestParameter.ID) == null){
             throw new NullPointerException("VenueDetailsRequest has no set ID. Please provide an ID by using the withId Method");
