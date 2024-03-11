@@ -2,21 +2,8 @@ package de.godly.javaticketmaster;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.neovisionaries.i18n.CountryCode;
-import de.godly.javaticketmaster.objects.Attraction;
-import de.godly.javaticketmaster.request.details.*;
-import de.godly.javaticketmaster.request.search.AttractionsSearchRequest;
-import de.godly.javaticketmaster.request.search.ClassificationsRequest;
-import de.godly.javaticketmaster.request.search.EventsSearchRequest;
-import de.godly.javaticketmaster.request.search.VenueSearchRequest;
-import de.godly.javaticketmaster.response.details.*;
-import de.godly.javaticketmaster.response.search.AttractionsResponse;
-import de.godly.javaticketmaster.response.search.ClassificationsResponse;
-import de.godly.javaticketmaster.response.search.EventsResponse;
-import de.godly.javaticketmaster.response.search.VenuesResponse;
 import lombok.*;
 import okhttp3.OkHttpClient;
-import org.jetbrains.annotations.Nullable;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;

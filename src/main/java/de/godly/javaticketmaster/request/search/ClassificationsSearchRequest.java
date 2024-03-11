@@ -1,6 +1,5 @@
 package de.godly.javaticketmaster.request.search;
 
-import com.neovisionaries.i18n.CountryCode;
 import de.godly.javaticketmaster.JavaTicketMaster;
 import de.godly.javaticketmaster.objects.search.LimitSearchEnum;
 import de.godly.javaticketmaster.objects.search.Source;
@@ -16,12 +15,12 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClassificationsRequest extends DiscoveryRequest {
+public class ClassificationsSearchRequest extends DiscoveryRequest {
     @Getter
     private Map<ClassificationRequestParameter, Object> parameters;
 
 
-    public ClassificationsRequest(JavaTicketMaster javaTicketMaster){
+    public ClassificationsSearchRequest(JavaTicketMaster javaTicketMaster){
         super(javaTicketMaster);
         parameters = new HashMap<>();
     }
@@ -34,7 +33,7 @@ public class ClassificationsRequest extends DiscoveryRequest {
      * e.g. INCLUDE_TBA requires LimitSearchEnum.class value type
      */
 
-    public ClassificationsRequest addParameter(ClassificationRequestParameter paramType, Object value) throws IncompatibleClassificationParameter {
+    public ClassificationsSearchRequest addParameter(ClassificationRequestParameter paramType, Object value) throws IncompatibleClassificationParameter {
         if(value.getClass() != paramType.type){
             throw new IncompatibleClassificationParameter(paramType, value);
         }
