@@ -1,7 +1,7 @@
 
 # Ticketmaster-DiscoveryAPI-JavaSDK
 
-Simple Java Implementation of the Ticketmaster DiscoveryAPI using [OkHttp](https://square.github.io/okhttp/) & [GSON](https://github.com/google/gson) as well as Lombok for handling boilerplate code
+Simple Java Implementation of the [Ticketmaster DiscoveryAPI](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/) using [OkHttp](https://square.github.io/okhttp/) & [GSON](https://github.com/google/gson) as well as Lombok for handling boilerplate code
 
 
 ## Usage/Examples
