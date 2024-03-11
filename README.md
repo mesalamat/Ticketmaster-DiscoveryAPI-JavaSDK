@@ -23,7 +23,7 @@ JavaTicketMaster javaTicketMaster = new JavaTicketMaster("YourApiKey", "CustomUs
 The Layout of all Requests is basically the same. Some simply have more Parameters than others. All Parameters for each Requests can be found here: [Ticketmaster API Documentation
 ](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/#overview)
 
-To create a new Request, you have to create a new Instance of it via the Constructor
+To create a new Request, you have to create a new Instance of the target Request via the Constructor
 
 Event Search Request Generic Example:
 ```java
